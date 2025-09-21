@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Описание плагина Respawn Player Menu</title>
+</head>
+<body>
+<div style="width: 700px;">
+<p>Respawn Player Menu</p>
+<p>Версия: 0.0.4</p>
+<p>Автор: Radius</p>
+<p>Описание:</p>
+<p style="padding-left: 30px;">Плагин реализует возможность возрождения за очки anew через меню. Является дополнением к плагину Respawn Player Core.</p>
+<p>Особенности:</p>
+<ul>
+<li>возможность задать с какого раунда будет доступно меню (см квар rpm_start_round)</li>
+<li>возможность задать при каком количестве игроков будет доступно меню (см квар rpm_min_players)</li>
+<li>возможность ограничить время работы меню (см квар rpm_menu_respawn_time)</li>
+<li>возможность задать цену возрождения в очках anew (см квар rpm_respawn_anew_price)</li>
+<li>поддержка очков anew из Army Ranks Ultimate, AES, BonusMenu RBS</li>
+<li>имеется API плагина (см 'include/respawn_player_menu.inc')</li>
+<li>все квары и команды для удобства настраиваются в автоматически создаваемом конфигурационном файле 'addons/amxmodx/configs/respawn_player/respawn_player_menu.cfg'</li>
+<li>автоматически создаваемый словарь мультиязычности 'addons/amxmodx/data/lang/respawn_player_menu.txt'</li>
+</ul>
+<p>Требования:</p>
+<ul>
+<li>Плагин Plugins Core (версии 1.8.0 и выше)</li>
+<li>Плагин Respawn Player Core</li>
+</ul>
+<p>Настройки (из автоматически создаваемого конфигурационного файла 'respawn_player/respawn_player_menu.cfg'):</p>
+<div style="padding-left: 30px;white-space:pre;font-family:monospace">
+// rpm_update_config - обновляет файл 'respawn_player/respawn_player_menu.cfg' при смене карты
+//   1 - обновить файл
+//   2 - сделать бэкап (*.bkp) и обновить файл
+// Внимание: Текущие значения кваров (кроме команд), запишутся в обновленный файл
+// Квар со значением прописывается в консоли сервера
+// После обновления квар сам вернется в значение 0
+
+// rpm_update_dictionary - обновляет lang файл 'respawn_player_menu.txt' при смене карты
+//   1 - обновить файл
+//   2 - сделать бэкап (*.bkp) и обновить файл
+// Внимание: Квар со значением прописывается в консоли сервера
+// После обновления квар сам вернется в значение 0
+
+// Уровень логов
+//   0 - выключено (OFF)
+//   1 - предупреждения (WARN)
+//   2 - информация (INFO)
+//   3 - отладочная информация (DEBUG)
+//   4 - подробная отладочная информация (TRACE)
+// По умолчанию: "2"
+rpm_log_level "2"
+
+// С какого раунда будет доступно меню возрождения
+// По умолчанию: "2"
+rpm_start_round "2"
+
+// Минимальное количество игроков, необходимое для работы меню
+// Наблюдатели не учитываются
+// По умолчанию: "11"
+rpm_min_players "11"
+
+// Сколько секунд после смерти будет доступно меню возрождения
+// По умолчанию: "5"
+rpm_menu_respawn_time "5"
+
+// Сколько anew очков стоит возрождение через меню
+// По умолчанию: "150"
+rpm_respawn_anew_price "150"
+</div>
+<p>Последняя версия 0.0.4 (16 апр 2025г):</p>
+<ul style="padding-left: 55px;">
+<li>respawn_player_menu_changelog.md - список изменений</li>
+</ul>
+</div>
+</body>
+</html>

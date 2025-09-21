@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Описание плагина Restart Extended</title>
+</head>
+<body>
+<div style="width: 700px;">
+Restart Extended
+0.0.9
+<p>Автор: Radius</p>
+<p>Описание:</p>
+<p style="padding-left: 30px;">Плагин позволяет огранизовать игру на одной карте со сменами сторон и периодической сменой карты на саму себя</p>
+<p>Особенности:</p>
+<ul>
+<li>возможность настройки периодичности смен сторон (квар re_swap_teams_rounds_num)</li>
+<li>возможность настройки периодичности смены карты на саму себя (квар re_change_map_rounds_num)</li>
+<li>возможность настройки карты (квар re_change_map)</li>
+<li>возможность настройки карты для малого количества игроков (квар re_change_map_small)</li>
+<li>возможность персонального отключения оповещений с сохранением и восстановлением при следующем подключении (квар re_toggle_show_info_cmd)</li>
+<li>возможность задать звук оповещений (квар re_alert_sound)</li>
+<li>возможность моментальной смены карты или как в мап менеджерах с показом таблицы счета перед сменой карты (квар re_send_intemission)</li>
+<li>возможность заблокировать любые команды, которые могут привести к смене карты (см описание команды re_block_cmd)</li>
+<li>все квары и команды для удобства настраиваются в автоматически создаваемом конфигурационном файле 'addons/amxmodx/configs/restart_extended.cfg'</li>
+<li>автоматически создаваемый словарь мультиязычности 'addons/amxmodx/data/lang/restart_extended.txt'</li>
+</ul>
+<p>Требования:</p>
+<ul><li>Plugins Core (версии 1.8.0 и выше)</li></ul>
+<p>Настройки (из автоматически создаваемого конфигурационного файла 'restart_extended.cfg'):</p>
+<div style="padding-left: 30px;white-space:pre;font-family:monospace">
+// re_update_config - обновляет файл 'restart_extended.cfg' при смене карты
+//   1 - обновить файл
+//   2 - сделать бекап (*.bkp) и обновить файл
+// Внимание: Текущие значения кваров (кроме команд), запишутся в обновленный файл
+// Квар со значением прописывается в консоли сервера
+// После обновления квар сам вернется в значение 0
+
+// re_update_dictionary - обновляет lang файл 'restart_extended.txt' при смене карты
+//   1 - обновить файл
+//   2 - сделать бекап (*.bkp) и обновить файл
+// Внимание: Квар со значением прописывается в консоли сервера
+// После обновления квар сам вернется в значение 0
+
+// Уровень логов
+//  0 - выключено (OFF)
+//  1 - предупреждения (WARN)
+//  2 - информация (INFO)
+//  3 - отладочная информация (DEBUG)
+//  4 - подробная отладочная информация (TRACE)
+// По умолчанию: "2"
+re_log_level "2"
+
+// Через сколько раундов менять игрокам команду на противоположную
+// Если значение 0, то функция отключена
+// По умолчанию: "20"
+re_swap_teams_rounds_num "20"
+
+// Через сколько раундов менять карту на саму себя
+// Если значение 0, то функция отключена
+// По умолчанию: "40"
+re_change_map_rounds_num "40"
+
+// Карта, которая перезапускается при достижении 're_change_map_rounds_num' раундов
+// Если значение пустое, то функция отключена
+// По умолчанию: "de_dust2"
+re_change_map "de_dust2"
+
+// Мини версия карты, которая перезапускается при достижении
+// 're_change_map_rounds_num' раундов. Если значение пустое, то функция отключена
+// По умолчанию: "de_dust2_2x2"
+re_change_map_small "de_dust2_2x2"
+
+// Количество игроков, при котором перезапускается карта из 're_change_map_small'
+// Если значение 0, то карта всегда берётся из 're_change_map'
+// По умолчанию: "0"
+re_small_players_limit "0"
+
+// Список команд (разделенных ';') с помощью которых включается/выключается
+// оповещение об оставшихся до рестарта раундах (включая звук)
+// По умолчанию: "re_toggle_info"
+re_toggle_show_info_cmd "re_toggle_info"
+
+// Путь к файлу звука (wav или mp3), который проигрывается вместе с оповещением
+// об оставшихся до рестарта раундах
+// По умолчанию: "events/tutor_msg.wav"
+re_alert_sound "events/tutor_msg.wav"
+
+// Показывать (1) или нет (0) таблицу счёта при смене карты
+// Пригодится если карта меняется очень долго из-за плагина статистики
+// По умолчанию: "0"
+re_send_intemission "0"
+
+// Время хранения данных игрока (в днях) с момента последнего посещения
+// Данные игрока: вкл/выкл отображения информационных сообщений
+// По умолчанию: "30"
+re_data_storage_time "30"
+
+// re_block_cmd - позволяет заблокировать команды, которые относятся к смене
+//   карты
+// Формат команды:
+//   re_block_cmd "cmd"
+// cmd - обязательный аргумент, отвечающий за команду
+re_block_cmd "say /maps"
+re_block_cmd "say nextmap"
+re_block_cmd "say timeleft"
+re_block_cmd "say thetime"
+re_block_cmd "say_team /maps"
+re_block_cmd "say_team nextmap"
+re_block_cmd "say_team timeleft"
+re_block_cmd "say_team thetime"
+re_block_cmd "mapm_startvote"
+re_block_cmd "amx_votemap"
+re_block_cmd "amx_votemapmenu"
+re_block_cmd "amx_changelevel"
+re_block_cmd "amx_mapmenu"
+re_block_cmd "amx_map"
+re_block_cmd "amx_rtv"
+re_block_cmd "say rtv"
+re_block_cmd "say /rtv"
+re_block_cmd "say /votemap"
+re_block_cmd "say rockthevote"
+re_block_cmd "say /rockthevote"
+re_block_cmd "say_team rtv"
+re_block_cmd "say_team /rtv"
+re_block_cmd "say_team /votemap"
+re_block_cmd "say_team rockthevote"
+re_block_cmd "say_team /rockthevote"
+</div>
+<p>Последняя версия 0.0.9 (06 мар 2025г):</p>
+<ul style="padding-left: 55px;">
+<li>restart_extended_changelog.md - список изменений</li>
+</ul>
+</div>
+</body>
+</html>

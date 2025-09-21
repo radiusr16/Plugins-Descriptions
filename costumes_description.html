@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Описание плагина Costumes</title>
+</head>
+<body>
+<div style="width: 700px;">
+Costumes 1.8.0
+<p>Автор: Radius</p>
+<p>Описание:</p>
+<p style="padding-left: 30px;">Плагин позволяет изменить внешний вид игрового персонажа с помощью моделей через удобное меню.</p>
+<p>Особенности:</p>
+<ul>
+<li>возможность копировать все аксессуары другого игрока</li>
+<li>возможность задавать скин модели аксессуара</li>
+<li>неограниченное общее количество аксессуаров</li>
+<li>возможность скрыть аксессуары в меню если у игрока нет к ним доступа (см команду add_costume в costumes.cfg)</li>
+<li>возможность настроить доступ к аксессуарам в зависимости от команды (см команду add_costume в costumes.cfg)</li>
+<li>возможность задать аксессуары по умолчанию, которые будут установлены если игрок ничего не выбрал (см команду add_costume в costumes.cfg)</li>
+<li>автоматическое обновление прозрачности костюмов, если сам игрок тоже прозрачен (и другие rendering эффекты)</li>
+<li>возможность посмотреть как будет выглядеть персонаж (режим примерки в главном меню)</li>
+<li>возможность добавлять любые модели с любым набором суб-моделей (команда add_costume)</li>
+<li>имеется API для разработчиков</li>
+<li>все квары и команды для удобства настраиваются в автоматически создаваемом конфигурационном файле 'addons/amxmodx/configs/costumes.cfg'</li>
+<li>автоматически создаваемый словарь многоязычности 'addons/amxmodx/data/lang/costumes.txt'</li>
+</ul>
+<p>Требования:</p>
+<ul><li>Plugins Core (версии 1.8.0 и выше)</li></ul>
+<p>Настройки (из автоматически создаваемого конфигурационного файла 'costumes.cfg'):</p>
+<div style="padding-left: 30px;white-space:pre;font-family:monospace">
+// costumes_update_config - обновляет файл 'costumes.cfg' при смене карты
+//   1 - обновить файл
+//   2 - сделать бэкап (*.bkp) и обновить файл
+// Внимание: Текущие значения кваров (кроме команд), запишутся в обновленный файл
+// Квар со значением прописывается в консоли сервера
+// После обновления квар сам вернется в значение 0
+
+// costumes_update_dictionary - обновляет lang файл 'costumes.txt' при смене карты
+//   1 - обновить файл
+//   2 - сделать бэкап (*.bkp) и обновить файл
+// Внимание: Квар со значением прописывается в консоли сервера
+// После обновления квар сам вернется в значение 0
+
+// Уровень логов
+//  0 - выключено (OFF)
+//  1 - предупреждения (WARN)
+//  2 - информация (INFO)
+//  3 - отладочная информация (DEBUG)
+//  4 - подробная отладочная информация (TRACE)
+// По умолчанию: "2"
+costumes_log_level "2"
+
+// Список команд (разделенных ';'), с помощью которых будет вызываться меню
+// выбора аксессуаров
+// По умолчанию: "say /costume"
+costumes_main_menu_cmd "say /costume"
+
+// Обновлять (1) или нет (0) у аксессуаров прозрачность и rendering эффекты
+// По умолчанию: "0"
+costumes_update_rendering "0"
+
+// Время хранения данных (в днях) о надетых аксессуарах
+// По умолчанию: "30"
+costumes_data_storage_time "30"
+
+pc_settings_menu_item_insert "-1" "COSTUMES_SETTINGS_MENU_TITLE" "all" "f:costumes_main_menu" "hide"
+
+// add_costume - команда, которая добавляет костюмы в меню 'Выберите аксессуар'
+// Формат команды:
+//  add_costume "group" "uid" "path" "body" "skin" "menu_item_name" "access_flags" "behaviour" "team" "default_mark"
+// group - обязательный аргумент, в котором указывается индекс группы.
+//    Допустимые значения: 0 - маски, 1 - шапки, 2 - хвосты, 3 - портфели
+// uid - обязательный аргумент, отвечающий за уникальный числовой идентификатор
+//   костюма
+// path - обязательный аргумент, в котором указывается путь до модели костюма
+// body - обязательный аргумент, отвечающий за индекс суб-модели
+// skin - обязательный аргумент, отвечающий за индекс скина
+// menu_item_name - обязательный аргумент, отвечающий за название костюма в меню
+//   Указывается либо текст, либо ключ словаря из 'data/lang/costumes.txt'
+// access_flags - обязательный аргумент, отвечающий за флаги доступа к костюму
+//    Спец. значения: 'all' - разрешено всем, ''(пустое) - запрещено всем
+// behaviour - определяет поведение пункта меню. Поддерживается 2 значения:
+//   hide    - если доступа к пункту меню нет, он не отображается
+//   disable - если доступа к пункту меню нет, он затенен и недоступен
+// team - необязательный аргумент, отвечающий за команду, в которой должен
+//    быть игрок чтобы получить доступ к костюму
+//    Допустимые значения: 'tt' (Террористы); 'ct' (Контр-Террористы); 'both',
+//     ''(пустое) или аргумент не указан вовсе, то доступно для обеих команд
+// default_mark - необязательный аргумент, который задает костюм по умолчанию.
+//    Пригодится если нужно назначить всем новогодние аксессуары (шапки и т.д)
+//    Внимание: В группе костюмом по умолчанию может быть только один аксессуар.
+//     Если их несколько, то выбирается последний назначенный
+//    Допустимые значения:
+//     '0', пустое '' или аргумент не указан вовсе - обычный костюм
+//     '1' - назначить костюмом по умолчанию
+
+add_costume "0" "0"  "models/costumes_2_0/costumes_face.mdl" "0"  "0" "COSTUMES_MENU1_ITEM01" "all" "hide"
+add_costume "0" "1"  "models/costumes_2_0/costumes_face.mdl" "1"  "0" "COSTUMES_MENU1_ITEM02" "all" "hide"
+add_costume "0" "2"  "models/costumes_2_0/costumes_face.mdl" "2"  "0" "COSTUMES_MENU1_ITEM03" "all" "hide"
+add_costume "0" "3"  "models/costumes_2_0/costumes_face.mdl" "3"  "0" "COSTUMES_MENU1_ITEM04" "all" "hide"
+add_costume "0" "4"  "models/costumes_2_0/costumes_face.mdl" "4"  "0" "COSTUMES_MENU1_ITEM05" "all" "hide"
+add_costume "0" "5"  "models/costumes_2_0/costumes_face.mdl" "5"  "0" "COSTUMES_MENU1_ITEM06" "all" "hide"
+add_costume "0" "6"  "models/costumes_2_0/costumes_face.mdl" "6"  "0" "COSTUMES_MENU1_ITEM07" "all" "hide"
+add_costume "0" "7"  "models/costumes_2_0/costumes_face.mdl" "7"  "0" "COSTUMES_MENU1_ITEM08" "all" "hide"
+add_costume "0" "8"  "models/costumes_2_0/costumes_face.mdl" "8"  "0" "COSTUMES_MENU1_ITEM09" "all" "hide"
+add_costume "0" "9"  "models/costumes_2_0/costumes_face.mdl" "9"  "0" "COSTUMES_MENU1_ITEM10" "all" "hide"
+add_costume "0" "10" "models/costumes_2_0/costumes_face.mdl" "10" "0" "COSTUMES_MENU1_ITEM11" "all" "hide"
+add_costume "0" "11" "models/costumes_2_0/costumes_face.mdl" "11" "0" "COSTUMES_MENU1_ITEM12" "all" "hide"
+add_costume "0" "12" "models/costumes_2_0/costumes_face.mdl" "12" "0" "COSTUMES_MENU1_ITEM13" "all" "hide"
+add_costume "0" "13" "models/costumes_2_0/costumes_face.mdl" "13" "0" "COSTUMES_MENU1_ITEM14" "all" "hide"
+add_costume "0" "14" "models/costumes_2_0/costumes_face.mdl" "14" "0" "COSTUMES_MENU1_ITEM15" "all" "hide"
+add_costume "0" "15" "models/costumes_2_0/costumes_face.mdl" "15" "0" "COSTUMES_MENU1_ITEM16" "all" "hide"
+add_costume "0" "16" "models/costumes_2_0/costumes_face.mdl" "16" "0" "COSTUMES_MENU1_ITEM17" "all" "hide"
+add_costume "0" "17" "models/costumes_2_0/costumes_face.mdl" "17" "0" "COSTUMES_MENU1_ITEM18" "all" "hide"
+add_costume "0" "18" "models/costumes_2_0/costumes_face.mdl" "18" "0" "COSTUMES_MENU1_ITEM19" "all" "hide"
+add_costume "0" "19" "models/costumes_2_0/costumes_face.mdl" "19" "0" "COSTUMES_MENU1_ITEM20" "all" "hide"
+add_costume "0" "20" "models/costumes_2_0/costumes_face.mdl" "20" "0" "COSTUMES_MENU1_ITEM21" "all" "hide"
+add_costume "0" "21" "models/costumes_2_0/costumes_face.mdl" "21" "0" "COSTUMES_MENU1_ITEM22" "all" "hide"
+add_costume "0" "22" "models/costumes_2_0/costumes_face.mdl" "22" "0" "COSTUMES_MENU1_ITEM23" "all" "hide"
+add_costume "0" "23" "models/costumes_2_0/costumes_face.mdl" "23" "0" "COSTUMES_MENU1_ITEM24" "all" "hide"
+add_costume "0" "24" "models/costumes_2_0/costumes_face.mdl" "24" "0" "COSTUMES_MENU1_ITEM25" "all" "hide"
+add_costume "0" "25" "models/costumes_2_0/costumes_face.mdl" "25" "0" "COSTUMES_MENU1_ITEM26" "all" "hide"
+add_costume "0" "26" "models/costumes_2_0/costumes_face.mdl" "26" "0" "COSTUMES_MENU1_ITEM27" "all" "hide"
+add_costume "0" "27" "models/costumes_2_0/costumes_face.mdl" "27" "0" "COSTUMES_MENU1_ITEM28" "all" "hide"
+
+add_costume "1" "28" "models/costumes_2_0/costumes_head.mdl" "0"  "0" "COSTUMES_MENU2_ITEM01" "all" "hide"
+add_costume "1" "29" "models/costumes_2_0/costumes_head.mdl" "1"  "0" "COSTUMES_MENU2_ITEM02" "all" "hide"
+add_costume "1" "30" "models/costumes_2_0/costumes_head.mdl" "2"  "0" "COSTUMES_MENU2_ITEM03" "all" "hide"
+add_costume "1" "31" "models/costumes_2_0/costumes_head.mdl" "3"  "0" "COSTUMES_MENU2_ITEM04" "all" "hide"
+add_costume "1" "32" "models/costumes_2_0/costumes_head.mdl" "4"  "0" "COSTUMES_MENU2_ITEM05" "all" "hide"
+add_costume "1" "33" "models/costumes_2_0/costumes_head.mdl" "5"  "0" "COSTUMES_MENU2_ITEM06" "all" "hide"
+add_costume "1" "34" "models/costumes_2_0/costumes_head.mdl" "6"  "0" "COSTUMES_MENU2_ITEM07" "all" "hide"
+add_costume "1" "35" "models/costumes_2_0/costumes_head.mdl" "7"  "0" "COSTUMES_MENU2_ITEM08" "all" "hide"
+add_costume "1" "36" "models/costumes_2_0/costumes_head.mdl" "8"  "0" "COSTUMES_MENU2_ITEM09" "all" "hide"
+add_costume "1" "37" "models/costumes_2_0/costumes_head.mdl" "9"  "0" "COSTUMES_MENU2_ITEM10" "all" "hide"
+add_costume "1" "38" "models/costumes_2_0/costumes_head.mdl" "10" "0" "COSTUMES_MENU2_ITEM11" "all" "hide"
+add_costume "1" "39" "models/costumes_2_0/costumes_head.mdl" "11" "0" "COSTUMES_MENU2_ITEM12" "all" "hide"
+add_costume "1" "40" "models/costumes_2_0/costumes_head.mdl" "12" "0" "COSTUMES_MENU2_ITEM13" "all" "hide"
+add_costume "1" "41" "models/costumes_2_0/costumes_head.mdl" "13" "0" "COSTUMES_MENU2_ITEM14" "all" "hide"
+add_costume "1" "42" "models/costumes_2_0/costumes_head.mdl" "14" "0" "COSTUMES_MENU2_ITEM15" "all" "hide"
+add_costume "1" "43" "models/costumes_2_0/costumes_head.mdl" "15" "0" "COSTUMES_MENU2_ITEM16" "all" "hide"
+add_costume "1" "44" "models/costumes_2_0/costumes_head.mdl" "16" "0" "COSTUMES_MENU2_ITEM17" "all" "hide"
+add_costume "1" "45" "models/costumes_2_0/costumes_head.mdl" "17" "0" "COSTUMES_MENU2_ITEM18" "all" "hide"
+add_costume "1" "46" "models/costumes_2_0/costumes_head.mdl" "18" "0" "COSTUMES_MENU2_ITEM19" "all" "hide"
+add_costume "1" "47" "models/costumes_2_0/costumes_head.mdl" "19" "0" "COSTUMES_MENU2_ITEM20" "all" "hide"
+add_costume "1" "48" "models/costumes_2_0/costumes_head.mdl" "20" "0" "COSTUMES_MENU2_ITEM21" "all" "hide"
+add_costume "1" "49" "models/costumes_2_0/costumes_head.mdl" "21" "0" "COSTUMES_MENU2_ITEM22" "all" "hide"
+add_costume "1" "50" "models/costumes_2_0/costumes_head.mdl" "22" "0" "COSTUMES_MENU2_ITEM23" "all" "hide"
+add_costume "1" "51" "models/costumes_2_0/costumes_head.mdl" "23" "0" "COSTUMES_MENU2_ITEM24" "all" "hide"
+
+add_costume "2" "52" "models/costumes_2_0/costumes_pelvis.mdl" "0" "0" "COSTUMES_MENU3_ITEM01" "all" "hide"
+add_costume "2" "53" "models/costumes_2_0/costumes_pelvis.mdl" "1" "0" "COSTUMES_MENU3_ITEM02" "all" "hide"
+add_costume "2" "54" "models/costumes_2_0/costumes_pelvis.mdl" "2" "0" "COSTUMES_MENU3_ITEM03" "all" "hide"
+add_costume "2" "55" "models/costumes_2_0/costumes_pelvis.mdl" "3" "0" "COSTUMES_MENU3_ITEM04" "all" "hide"
+add_costume "2" "56" "models/costumes_2_0/costumes_pelvis.mdl" "4" "0" "COSTUMES_MENU3_ITEM05" "all" "hide"
+add_costume "2" "57" "models/costumes_2_0/costumes_pelvis.mdl" "5" "0" "COSTUMES_MENU3_ITEM06" "all" "hide"
+add_costume "2" "58" "models/costumes_2_0/costumes_pelvis.mdl" "6" "0" "COSTUMES_MENU3_ITEM07" "all" "hide"
+add_costume "2" "59" "models/costumes_2_0/costumes_pelvis.mdl" "7" "0" "COSTUMES_MENU3_ITEM08" "all" "hide"
+add_costume "2" "60" "models/costumes_2_0/costumes_pelvis.mdl" "8" "0" "COSTUMES_MENU3_ITEM09" "all" "hide"
+add_costume "2" "61" "models/costumes_2_0/costumes_pelvis.mdl" "9" "0" "COSTUMES_MENU3_ITEM10" "all" "hide"
+
+add_costume "3" "62" "models/costumes_2_0/costumes_back.mdl" "0"  "0" "COSTUMES_MENU4_ITEM01" "all" "hide"
+add_costume "3" "63" "models/costumes_2_0/costumes_back.mdl" "1"  "0" "COSTUMES_MENU4_ITEM02" "all" "hide"
+add_costume "3" "64" "models/costumes_2_0/costumes_back.mdl" "2"  "0" "COSTUMES_MENU4_ITEM03" "all" "hide"
+add_costume "3" "65" "models/costumes_2_0/costumes_back.mdl" "3"  "0" "COSTUMES_MENU4_ITEM04" "all" "hide"
+add_costume "3" "66" "models/costumes_2_0/costumes_back.mdl" "4"  "0" "COSTUMES_MENU4_ITEM05" "all" "hide"
+add_costume "3" "67" "models/costumes_2_0/costumes_back.mdl" "5"  "0" "COSTUMES_MENU4_ITEM06" "all" "hide"
+add_costume "3" "68" "models/costumes_2_0/costumes_back.mdl" "6"  "0" "COSTUMES_MENU4_ITEM07" "all" "hide"
+add_costume "3" "69" "models/costumes_2_0/costumes_back.mdl" "7"  "0" "COSTUMES_MENU4_ITEM08" "all" "hide"
+add_costume "3" "70" "models/costumes_2_0/costumes_back.mdl" "8"  "0" "COSTUMES_MENU4_ITEM09" "all" "hide"
+add_costume "3" "71" "models/costumes_2_0/costumes_back.mdl" "9"  "0" "COSTUMES_MENU4_ITEM10" "all" "hide"
+add_costume "3" "72" "models/costumes_2_0/costumes_back.mdl" "10" "0" "COSTUMES_MENU4_ITEM11" "all" "hide"
+add_costume "3" "73" "models/costumes_2_0/costumes_back.mdl" "11" "0" "COSTUMES_MENU4_ITEM12" "all" "hide"
+add_costume "3" "74" "models/costumes_2_0/costumes_back.mdl" "12" "0" "COSTUMES_MENU4_ITEM13" "all" "hide"
+add_costume "3" "75" "models/costumes_2_0/costumes_back.mdl" "13" "0" "COSTUMES_MENU4_ITEM14" "all" "hide"
+add_costume "3" "76" "models/costumes_2_0/costumes_back.mdl" "14" "0" "COSTUMES_MENU4_ITEM15" "all" "hide"
+add_costume "3" "77" "models/costumes_2_0/costumes_back.mdl" "15" "0" "COSTUMES_MENU4_ITEM16" "all" "hide"
+add_costume "3" "78" "models/costumes_2_0/costumes_back.mdl" "16" "0" "COSTUMES_MENU4_ITEM17" "all" "hide"
+add_costume "3" "79" "models/costumes_2_0/costumes_back.mdl" "17" "0" "COSTUMES_MENU4_ITEM18" "all" "hide"
+add_costume "3" "80" "models/costumes_2_0/costumes_back.mdl" "18" "0" "COSTUMES_MENU4_ITEM19" "all" "hide"
+add_costume "3" "81" "models/costumes_2_0/costumes_back.mdl" "19" "0" "COSTUMES_MENU4_ITEM20" "all" "hide"
+add_costume "3" "82" "models/costumes_2_0/costumes_back.mdl" "20" "0" "COSTUMES_MENU4_ITEM21" "all" "hide"
+add_costume "3" "83" "models/costumes_2_0/costumes_back.mdl" "21" "0" "COSTUMES_MENU4_ITEM22" "all" "hide"
+add_costume "3" "84" "models/costumes_2_0/costumes_back.mdl" "22" "0" "COSTUMES_MENU4_ITEM23" "all" "hide"
+add_costume "3" "85" "models/costumes_2_0/costumes_back.mdl" "23" "0" "COSTUMES_MENU4_ITEM24" "all" "hide"
+add_costume "3" "86" "models/costumes_2_0/costumes_back.mdl" "24" "0" "COSTUMES_MENU4_ITEM25" "all" "hide"
+</div>
+<p>Последняя версия 1.8.0 (06 июн 2025г):</p>
+<ul style="padding-left: 55px;">
+<li>costumes_changelog.md - список изменений</li>
+</ul>
+</div>
+</body>
+</html>

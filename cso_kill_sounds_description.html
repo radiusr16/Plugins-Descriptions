@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Описание плагина CSO Kill Sounds</title>
+</head>
+<body>
+<div style="width: 700px;">
+CSO Kill Sounds 1.4.0
+<p>Автор: Radius</p>
+<p>Описание:</p>
+<p style="padding-left: 30px;">Плагин воспроизводит звуки из Counter-Strike Online в зависимости от того как (обычное, в голову, ножом, гранатой) и каким по счету было совершено убийство.</p>
+<p>Особенности:</p>
+<ul>
+<li>new: возможность задать HUD сообщение для каждого звука</li>
+<li>new: возможность настроить кто будет видеть HUD сообщение (см 'cso_kill_sounds.cfg')</li>
+<li>new: возможность настроить кто будет слышать звук (см 'cso_kill_sounds.cfg')</li>
+<li>возможность настроить время через которое будет сброшен счетчик убийств (квар cks_kills_count_reset_delay)</li>
+<li>возможность отключения проигрывания звуков с помощью команды чата /ksound (квар cks_toggle_play_sounds_cmd), с сохранением выбора и восстановлением при следующем подключении игрока</li>
+<li>возможность настроить флаги доступа для игроков, которым будут проигрываться звуки при убийстве (квар cks_play_sounds_access_flags)</li>
+<li>имеется API для разработчиков (см 'addons/amxmodx/scripting/cso_kill_sounds.inc')</li>
+<li>все квары и команды для удобства настраиваются в автоматически создаваемом конфигурационном файле 'addons/amxmodx/configs/cso_kill_sounds.cfg'</li>
+<li>автоматически создаваемый словарь многоязычности 'addons/amxmodx/data/lang/cso_kill_sounds.txt'</li>
+</ul>
+<p>Требования:</p>
+<ul><li>Plugins Core (версии 1.7.0 и выше)</li></ul>
+<p>Настройки (из автоматически создаваемого конфигурационного файла 'cso_kill_sounds.cfg'):</p>
+<div style="padding-left: 30px;white-space:pre;font-family:monospace">
+// cks_update_config - обновить (1) или нет (0) данный файл при смене карты
+// Внимание: Текущие значения кваров (кроме команд), запишутся в обновленный файл
+// Квар со значением 1 прописывается в консоли сервера
+// После обновления квар сам вернется в значение 0
+
+// cks_update_dictionary - обновить (1) или нет (0) lang файл при смене карты
+// Внимание: Квар со значением 1 прописывается в консоли сервера
+// После обновления квар сам вернется в значение 0
+
+// Уровень логов
+//  0 - выключено (OFF)
+//  1 - предупреждения (WARN)
+//  2 - информация (INFO)
+//  3 - отладочная информация (DEBUG)
+//  4 - подробная отладочная информация (TRACE)
+// По умолчанию: "2"
+cks_log_level "2"
+
+// Флаги доступа для игроков, которым будут проигрываться звуки при фраге
+// По умолчанию: "all"
+cks_play_sounds_access_flags "all"
+
+// Проигрывать (1) или нет (0) звуки, по умолчанию если игрок не менял значение
+// По умолчанию: "1"
+cks_play_sounds_default_state "1"
+
+// Время (в секундах), через которое будет сброшен счетчик убийств
+// Если значение 0, то счетчик убийств не сбрасывается
+// По умолчанию: "10"
+cks_kills_count_reset_delay "10"
+
+// RGB цвет, XY координаты и продолжительность HUD сообщения, которое показывается
+// когда проигрывается звук при фраге
+// По умолчанию: "220 160 0 | -1.0 0.19 | 3.0"
+cks_sound_hud_msg "220 160 0 | -1.0 0.19 | 3.0"
+
+// Список команд (разделяются ';') с помощью которых будет включаться/отключаться
+// проигрывание звуков
+// 'impulse 100' - фонарь, 'impulse 201' - спрей
+// если используется say, то say_team добавляется автоматически
+// По умолчанию: "say /ksound"
+cks_toggle_play_sounds_cmd "say /ksound"
+
+// Время хранения данных игрока (в днях), отвечающих за отключение/включение
+// проигрывания звуков
+// По умолчанию: "30"
+cks_data_storage_time "30"
+
+pc_settings_menu_item_insert "-1" "CKS_SETTINGS_MENU_TITLE" "all" "f:cks_sounds_toggle" "hide"
+
+// cks_add_sound - консольная команда, добавляющая звуки которые будут
+//  проигрываться при фраге
+// Формат команды:
+//   cks_add_sound "group" "sound_path" ["hud_msg"] ["recipient_flags"]
+// group - обязательный аргумент, в котором указывается название группы звуков.
+//   В каждой группе максимум 16 звуков и звук в группе выбирается рандомно,
+//   explode - убийство взрывом, knife - убийство ножом, hs - убийство в голову,
+//   цифрами (начиная с 1) задаются группы звуков в соответствии с количеством
+//   убийств подряд
+// sound_path - обязательный аргумент, в котором указывается путь к файлу звука
+//   (mp3 или wav)
+// hud_msg - необязательный аргумент, в котором указывается HUD сообщение
+//   Указывается либо текст, либо ключ словаря из 'data/lang/cso_kill_sounds.txt'
+// recipient_flags - необязательный аргумент, в котором в виде флагов
+//    настраивается кто будет слышать звук и видеть HUD сообщение:
+//    a - звук слышат все игроки
+//    b - звук слышит тот кто сделал фраг (по умолчанию, если аргумент не указан)
+//    c - звук слышат наблюдатели, которые наблюдают за игроком сделавшим фраг
+//    d - HUD видят все игроки
+//    e - HUD видит тот кто сделал фраг (по умолчанию, если аргумент не указан)
+//    f - HUD видят наблюдатели, которые наблюдают за игроком сделавшим фраг
+// Внимание: количество звуков неограничено, количество групп неограничено,
+//   в каждой группе не более 16 звуков
+// Внимание: Используйте знак '_' (нижнее подчеркивание), чтобы пропустить
+//   один из необязательных аргументов
+
+cks_add_sound "explode" "sound/cso_kill_sounds/grenade.wav"     "YOU GOT IT!!!" "ad"
+cks_add_sound "knife" "sound/cso_kill_sounds/humiliation.wav"   "HUMILIATION!!!" "ad"
+cks_add_sound "hs" "sound/cso_kill_sounds/headshot.wav"         "HEADSHOT!!!" "bc"
+cks_add_sound "1" "sound/cso_kill_sounds/first_kill.wav"        "FIRST-KILL!!!" "bc"
+cks_add_sound "1" "sound/cso_kill_sounds/excellent.wav"         "EXCELLENT!!!" "bc"
+cks_add_sound "2" "sound/cso_kill_sounds/double_kill.wav"       "DOUBLE-KILL!!!" "bc"
+cks_add_sound "3" "sound/cso_kill_sounds/triple_kill.wav"       "TRIPLE-KILL!!!" "bc"
+cks_add_sound "3" "sound/cso_kill_sounds/incredible.wav"        "INCREDIBLE!!!" "bc"
+cks_add_sound "4" "sound/cso_kill_sounds/multi_kill.wav"        "MULTI-KILL!!!" "bc"
+cks_add_sound "4" "sound/cso_kill_sounds/mega_kill.wav"         "MEGA-KILL!!!" "bc"
+cks_add_sound "5" "sound/cso_kill_sounds/crazy.wav"             "CRAZY!!!" "bc"
+cks_add_sound "5" "sound/cso_kill_sounds/monster_kill.wav"      "MONSTER-KILL!!!" "bc"
+cks_add_sound "6" "sound/cso_kill_sounds/oh_no.wav"             "OH NO!!!" "bc"
+cks_add_sound "6" "sound/cso_kill_sounds/oh_god.wav"            "OH GOD!!!" "bc"
+cks_add_sound "7" "sound/cso_kill_sounds/i_cant_belive_it.wav"  "I CAN'T BELIVE IT!!!" "bc"
+cks_add_sound "7" "sound/cso_kill_sounds/rampage.wav"           "RAMPAGE!!!" "bc"
+cks_add_sound "8" "sound/cso_kill_sounds/out_of_this_world.wav" "OUT OF THIS WORLD!!!" "bc"
+cks_add_sound "8" "sound/cso_kill_sounds/godlike.wav"           "GODLIKE!!!" "bc"
+cks_add_sound "9" "sound/cso_kill_sounds/oh_no.wav"             "OH NO!!!" "bc"
+cks_add_sound "9" "sound/cso_kill_sounds/godlike.wav"           "GODLIKE!!!" "bc"
+</div>
+<p>Последняя версия 1.4.0 (17 сен 2024г):</p>
+<ul style="padding-left: 55px;">
+<li>cso_kill_sounds_changelog.md - список изменений</li>
+</ul>
+</div>
+</body>
+</html>
