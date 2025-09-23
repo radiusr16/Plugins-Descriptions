@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Список изменений Plugins Core</title>
+  <style type="text/css">
+    td,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    p,
+    ul,
+    ol,
+    li {
+      page-break-inside: avoid;
+    }
+  </style>
+</head>
+
+<body>
+  <h3 id="section">Версия 1.8.5 (18 мая 2025г):</h3>
+  <h4 id="section-1">Добавлено:</h4>
+  <ul>
+    <li>в функцию pc_str_to_flags добавлена возможность указывать группы флагов и<br />
+      GameCMS услуги через запятую</li>
+  </ul>
+  <h4 id="section-2">Изменено:</h4>
+  <ul>
+    <li>в функции pc_str_to_flags можно указывать * как алиас all</li>
+  </ul>
+  <h4 id="section-3">Исправлено:</h4>
+  <h4 id="section-4">Обновившиеся файлы:</h4>
+  <ul>
+    <li>addons/amxmodx/plugins/plugins_core.amxx</li>
+    <li>addons/amxmodx/configs/plugins_core.cfg</li>
+  </ul>
+  <h3 id="section-5">Версия 1.8.0 (12 фев 2025г):</h3>
+  <h4 id="section-6">Добавлено:</h4>
+  <ul>
+    <li>кварам pc_update_config и pc_update_dictionary добавлено значение 2, при<br />
+      котором делается бэкап файла (*.bkp) и уже после делается обновление</li>
+    <li>для функции pc_exec_cfg_file добавлены флаги SKIP_SERVER_EXEC и CREATE_BACKUP<br />
+      SKIP_SERVER_EXEC - при выполнении конфига не вызывать server_exec();<br />
+      CREATE_BACKUP - создать бэкап перед обновлением (работает только с NEED_UPDATE)</li>
+  </ul>
+  <h4 id="section-7">Изменено:</h4>
+  <ul>
+    <li>у функции pc_get_log_filename добавлена возможность указывать base_filename</li>
+    <li>функция pc_debug_log, теперь пишет 'Mapchange to <mapname>' при смене карты</li>
+  </ul>
+  <h4 id="section-8">Исправлено:</h4>
+  <ul>
+    <li>в функции pc_play_sound файл звука mp3 был экранирован кавычками не в том месте</li>
+  </ul>
+  <h4 id="section-9">Обновившиеся файлы:</h4>
+  <ul>
+    <li>addons/amxmodx/plugins/plugins_core.amxx</li>
+    <li>addons/amxmodx/configs/plugins_core.cfg</li>
+  </ul>
+  <h3 id="section-10">Версия 1.7.0 (18 апр 2024г):</h3>
+  <h4 id="section-11">Добавлено:</h4>
+  <ul>
+    <li>добавлен квар pc_settings_menu_cmd, отвечающий за список команд с помощью<br />
+      которых будет вызываться меню настроек игрока</li>
+    <li>в кваре pc_admin_loader_type добавилось значение 4, которое пригодится если<br />
+      на сервере стоит GameCMS_API и используются плагины предназначенные для работы<br />
+      с загрузчиками флагов доступа из значения 1</li>
+  </ul>
+  <h4 id="section-12">Изменено:</h4>
+  <ul>
+    <li>повышено удобство чтения plugins_core.cfg (длина строк)</li>
+    <li>в 'lang/plugins_core.txt' добавлена памятка о возможности отключать<br />
+      сообщения</li>
+  </ul>
+  <h4 id="section-13">Обновившиеся файлы:</h4>
+  <ul>
+    <li>addons/amxmodx/plugins/plugins_core.amxx</li>
+    <li>addons/amxmodx/configs/plugins_core.cfg</li>
+    <li>addons/amxmodx/data/lang/plugins_core.txt</li>
+  </ul>
+  <h3 id="section-14">Версия 1.5.0 (03 фев 2023г):</h3>
+  <h4 id="section-15">Добавлено:</h4>
+  <ul>
+    <li>добавлен квар pc_admin_loader_type, который задает используемый загрузчик<br />
+      флагов доступа:
+      <ul>
+        <li>0 - стандартный admin.amxx (users.ini)</li>
+        <li>1 - admin_loader от mazdan (kanagava), Admin Loader от neygomon,<br />
+          Access Manager от mx?! (BlackSignature), Admin Load от F@nt0M</li>
+        <li>2 - GameCMS_API</li>
+        <li>3 - от AMXBans и AMXBans RBS</li>
+      </ul>
+    </li>
+    <li>добавлен конфигурационный файл plugins_core.cfg</li>
+    <li>добавлено описание команды pc_add_to_chat_white_list в plugins_core.cfg</li>
+    <li>добавлено описание команды pc_settings_menu_item_insert в plugins_core.cfg</li>
+  </ul>
+  <h4 id="section-16">Изменено:</h4>
+  <ul>
+    <li>расширена функциональность команды pc_settings_menu_item_insert<br />
+      (см plugins_core.cfg)</li>
+    <li>глобальный рефакторинг кода</li>
+  </ul>
+  <h4 id="section-17">Обновившиеся файлы:</h4>
+  <ul>
+    <li>addons/amxmodx/plugins/plugins_core.amxx</li>
+    <li>addons/amxmodx/scripting/include/plugins_core.inc</li>
+  </ul>
+  <h3 id="section-18">Версия 1.3.0 (23 ноя 2021г):</h3>
+  <h4 id="section-19">Добавлено:</h4>
+  <ul>
+    <li>возможность добавлять команды чата в список исключений, который будет работать<br />
+      в плагинах использующих Plugins Core (Gag Me, Level System)</li>
+  </ul>
+  <pre><code>      // text - текст, который будет добавлен в список исключений чата
+      pc_add_to_chat_white_list &quot;text&quot;
+
+      // Например:
+      pc_add_to_chat_white_list &quot;/rtv&quot;</code></pre>
+  <ul>
+    <li>добавлена функция, которая проверяет содержится ли текст переданный в качестве<br />
+      аргумента в списке исключений чата</li>
+  </ul>
+  <pre><code>      native pc_exists_in_chat_white_list(text[]);</code></pre>
+  <h4 id="section-20">Обновившиеся файлы:</h4>
+  <ul>
+    <li>addons/amxmodx/plugins/plugins_core.amxx</li>
+    <li>addons/amxmodx/scripting/include/plugins_core.inc</li>
+  </ul>
+  <h3 id="section-21">Версия 1.2.2 (11 ноя 2021г):</h3>
+  <h4 id="section-22">Исправлено:</h4>
+  <ul>
+    <li>неправильно загружались отрицательные float значения кваров</li>
+  </ul>
+  <h4 id="section-23">Обновившиеся файлы:</h4>
+  <ul>
+    <li>addons/amxmodx/plugins/plugins_core.amxx</li>
+  </ul>
+  <h3 id="section-24">Версия 1.2.0 (11 сен 2021г):</h3>
+  <h4 id="section-25">Добавлено:</h4>
+  <ul>
+    <li>добавлено общее меню настроек для игрока, которое вызывается с помощью команды<br />
+      чата /settings. Пункты в меню добавляются с помощью серверной команды:</li>
+  </ul>
+  <pre><code>      // position - позиция, в которую нужно вставить пункт меню.  
+      //   При вставке пункты меню не удаляются, а смещаются.  
+      //   Отсчет начинается с 1. Спец. значение: '-1' - вставить в конец
+      // menu_item_name - может быть текстом или ключом словаря мультиязычности
+      // access_flags - флаги доступа. Поддерживает спец. значения 'all' (всем) и '' (никому)
+      // handler - сначала пишется буква с двоеточием определяющие способ, а далее действие  
+      //   с: - клиентская команда  
+      //   f: - public функция вида function_name(id)  
+      //   s: - серверная команда
+      // behaviour - определяет поведение пункта меню. Поддерживается 2 значения:  
+      //   hide    - если доступа к пункту меню нет, он не отображается  
+      //   disable - если доступа к пункту меню нет, он затенен и недоступен 
+
+      pc_settings_menu_item_insert &quot;position&quot; &quot;menu_item_name&quot; &quot;access_flags&quot; &quot;handler&quot; &quot;behaviour&quot;</code></pre>
+  <ul>
+    <li>добавлена возможность указывать значения цвета в виде заранее заданных<br />
+      символьных констант. Указывать такие значения можно в кварах и других<br />
+      настройках связанных с цветом.<br />
+      Список поддерживаемых цветов:<br />
+      <pre>{white}, {silver}, {gray}, {black}, {red}, {maroon}, {yellow}, {olive}, {lime},  
+{green}, {aqua}, {teal}, {blue}, {navy}, {fuchsia}, {purple}</pre></li>
+    <li>меню, которое открывает само себя с помощью pc_menu_display, автоматически<br />
+      переключается на ту же страницу что была в прошлый раз</li>
+    <li>добавлены общие для многих плагинов, ключи словаря мультиязычности</li>
+    <li>добавлена forward функция для проверки требуемой версии:</li>
+  </ul>
+  <pre><code>      forward __plugins_core_version_check(const majorVersion, const minorVersion);</code></pre>
+  <h4 id="section-26">Обновившиеся файлы</h4>
+  <ul>
+    <li>addons/amxmodx/plugins/plugins_core.amxx</li>
+    <li>addons/amxmodx/data/lang/plugins_core.txt</li>
+  </ul>
+  <h3 id="section-27">Версия 1.1.0 (29 авг 2021г):</h3>
+  <h4 id="section-28">Добавлено</h4>
+  <ul>
+    <li>добавлена поддержка всех видов плагина AMXBans (включая AMXBans RBS)</li>
+  </ul>
+  <h4 id="section-29">Обновившиеся файлы:</h4>
+  <ul>
+    <li>addons/amxmodx/plugins/plugins_core.amxx</li>
+  </ul>
+  <h3 id="section-30">Версия 1.0.5 (06 апр 2021г):</h3>
+  <h4 id="section-31">Добавлено</h4>
+  <ul>
+    <li>
+      <p>добавлена команда pc_reload_cvars, которая запускает глобальное обновление<br />
+        конфигов во всех плагинах использующих plugins_core.amxx. Это избавляет от<br />
+        необходимости помнить и запускать команды обновления кваров каждого плагина</p>
+    </li>
+    <li>
+      <p>добавлена поддержка наследования значения кваров. Это значит что в качестве<br />
+        значения квара можно указать имя другого и этот квар получит его значение.<br />
+        При этом если наследуемый квар также ссылается на какой-то, то будет вычислено<br />
+        значение такого квара. Поддерживается до 100 уровней вложенности, с защитой<br />
+        от ситуации когда 2 и более квара могут ссылаться друг на друга вызывая<br />
+        бесконечный цикл.</p>
+      <p>Например:</p>
+    </li>
+  </ul>
+  <pre><code>      // обычное значение
+      ls_chat_access_immunity_flags &quot;a&quot;
+
+      // квар получит значение &quot;a&quot;  
+      ls_voice_access_immunity_flags &quot;ls_chat_access_immunity_flags&quot;</code></pre>
+  <h4 id="section-32">Изменено</h4>
+  <ul>
+    <li>
+      <p>квары типа CVAR_HUD, помимо цвета и координат, теперь поддерживают<br />
+        продолжительность. При этом сохранены обратная совместимость (последним<br />
+        указывается продолжительность сообщения)</p>
+      <p>Например:</p>
+    </li>
+  </ul>
+  <pre><code>      // RGB цвет, XY координаты и продолжительность HUD сообщения, информирующего  
+      // игрока о том что его переместил автобаланс  
+      // По умолчанию: &quot;139 139 0 | -1.0 0.36 | 3.0&quot;  
+      tc_hud_msg &quot;139 139 0 | -1.0 0.36 | 3.0&quot;</code></pre>
+  <h4 id="section-33">Обновившиеся файлы</h4>
+  <ul>
+    <li>addons/amxmodx/plugins/plugins_core.amxx</li>
+  </ul>
+  <h3 id="section-34">Версия 1.0.0 (10 сен 2019г):</h3>
+  <ul>
+    <li>релиз</li>
+  </ul>
+
+</body>
+
+</html>

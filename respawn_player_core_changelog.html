@@ -1,0 +1,60 @@
+<!DOCTYPE html []>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Список изменений Respawn Player: Core</title>
+  <style type="text/css">
+    td,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    p,
+    ul,
+    ol,
+    li {
+      page-break-inside: avoid;
+    }
+  </style>
+</head>
+
+<body>
+  <h3 id="section">Бета версия 0.0.18 (16 апр 2025г):</h3>
+  <h4 id="section-1">Добавлено:</h4>
+  <ul>
+    <li>добавлен квар <code>rpc_respawns_num_default</code>, отвечающий за доступное количество<br />
+      авто-возрождений игрока по умолчанию</li>
+    <li>добавлены доп. значения квару <code>rpc_respawns_flags_default</code>:<br />
+      e - игнорировать максимальное время работы функции возрождения<br />
+      f - возродиться на месте смерти</li>
+    <li>добавлен unstuck для возрождения на месте смерти</li>
+    <li>добавлены native функции:</li>
+  </ul>
+  <pre><code>      native rpc_is_respawn_duration_expired(id);
+      native rpc_get_respawns_count(id);
+      native rpc_set_respawns_count(id, respawns_count);
+      native rpc_get_respawns_num(id);
+      native rpc_set_respawns_num(id, respawns_num);</code></pre>
+  <h4 id="section-2">Изменено:</h4>
+  <ul>
+    <li>
+      <code>respawn_player_core.cfg</code> перемещен в <code>addons/amxmodx/configs/respawn_player/</code>
+    </li>
+  </ul>
+  <h4 id="section-3">Исправлено:</h4>
+  <ul>
+    <li>фикс радара при возрождении (предоставлен BlackSignature)</li>
+  </ul>
+  <h4 id="section-4">Удалено:</h4>
+  <ul>
+    <li>команда <code>rpc_settings</code> перенесена в плагин Respawn Player Settings</li>
+  </ul>
+  <h3 id="section-5">Бета версия 0.0.1 (18 янв 2024г):</h3>
+  <ul>
+    <li>создан плагин</li>
+  </ul>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html []>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Список изменений Count Unique Players</title>
+  <style type="text/css">
+    td,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    p,
+    ul,
+    ol,
+    li {
+      page-break-inside: avoid;
+    }
+  </style>
+</head>
+
+<body>
+  <h3 id="section">Версия 1.2.0 (23 фев 2025г):</h3>
+  <h4 id="section-1">Добавлено:</h4>
+  <ul>
+    <li>добавлен квар cup_informer_access, отвечающий за флаги доступа игроков, которым<br />
+      будет доступен информер</li>
+  </ul>
+  <h4 id="section-2">Изменено:</h4>
+  <ul>
+    <li>лог с общим числом игроков за сутки и логи с данными посетивших сервер игроков<br />
+      теперь в разных файлах</li>
+    <li>все логи пишутся в папку count_unique_players</li>
+  </ul>
+  <h4 id="section-3">Обновившиеся файлы:</h4>
+  <ul>
+    <li>addons/amxmodx/plugins/count_unique_players.amxx</li>
+    <li>addons/amxmodx/configs/count_unique_players.cfg</li>
+  </ul>
+  <h3 id="section-4">Версия 1.1.0 (17 июн 2024г):</h3>
+  <h4 id="section-5">Добавлено:</h4>
+  <ul>
+    <li>добавлен квар cup_informer_default_state, который определяет будет (1) или<br />
+      нет (0) показываться информер по умолчанию</li>
+    <li>добавлен квар cup_informer_toggle_cmd, отвечающий за список команд<br />
+      (разделенных ';'), с помощью которых включается/отключается отображение информера</li>
+    <li>добавлен квар cup_log_unique_players, определяющий будут (1) или нет (0)<br />
+      записываться в лог все уникальные игроки в формате:<br />
+      Player: "Nickname&lt;STEAM_X:X:XXXXXXXX&gt;&lt;255.255.255.255&gt;"</li>
+  </ul>
+  <h4 id="section-6">Обновившиеся файлы:</h4>
+  <ul>
+    <li>addons/amxmodx/plugins/count_unique_players.amxx</li>
+    <li>addons/amxmodx/configs/count_unique_players.cfg</li>
+    <li>addons/amxmodx/data/lang/count_unique_players.txt</li>
+  </ul>
+  <h3 id="section-7">Версия 1.0.0 (05 мая 2024г):</h3>
+  <ul>
+    <li>релиз</li>
+  </ul>
+  <h3 id="section-8">Бета версия 0.0.3 (11 апр 2024г):</h3>
+  <ul>
+    <li>создан плагин</li>
+  </ul>
+</body>
+
+</html>

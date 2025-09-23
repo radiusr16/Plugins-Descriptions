@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Описание плагина Respawn Player: Protection</title>
+</head>
+<body>
+<div style="width: 700px;">
+<p>Respawn Player: Protection</p>
+<p>Версия: 0.0.5</p>
+<p>Автор: Radius</p>
+<p>Описание:</p>
+<p style="padding-left: 30px;">Является дополнением плагина 'Respawn Player Core' и отвечает за реализацию защиты при возрождении и её эффекты</p>
+<p>Особенности:</p>
+<ul>
+<li>возможность настройки общей продолжительности защиты (см квар rpp_protection_time_default)</li>
+<li>возможность настройки индивидуальной продолжительности защиты (см 'include/respawn_player_core.inc')</li>
+<li>возможность детальной настройки эффектов рендеринга (см квары rpp_protection_render_*)</li>
+<li>возможность индикации продолжительности защиты в виде иконки (см квар rpp_protection_status_icon)</li>
+<li>возможность задать группы клавиш, которые будут сбрасывать защиту (см квар rpp_protection_stop_buttons)</li>
+<li>все квары и команды для удобства настраиваются в автоматически создаваемом конфигурационном файле 'addons/amxmodx/configs/respawn_player/respawn_player_protection.cfg'</li>
+<li>автоматически создаваемый словарь мультиязычности 'addons/amxmodx/data/lang/respawn_player_protection.txt'</li>
+</ul>
+<p>Требования:</p>
+<ul>
+<li>Плагин Plugins Core (версии 1.8.0 и выше)</li>
+<li>Плагин Respawn Player Core</li>
+</ul>
+<p>Настройки (из автоматически создаваемого конфигурационного файла 'respawn_player/respawn_player_protection.cfg'):</p>
+<div style="padding-left: 30px;white-space:pre;font-family:monospace">
+// rpp_update_config - обновляет файл 'respawn_player/respawn_player_protection.cfg' при смене карты
+//   1 - обновить файл
+//   2 - сделать бэкап (*.bkp) и обновить файл
+// Внимание: Текущие значения кваров (кроме команд), запишутся в обновленный файл
+// Квар со значением прописывается в консоли сервера
+// После обновления квар сам вернется в значение 0
+
+// Уровень логов
+//   0 - выключено (OFF)
+//   1 - предупреждения (WARN)
+//   2 - информация (INFO)
+//   3 - отладочная информация (DEBUG)
+//   4 - подробная отладочная информация (TRACE)
+// По умолчанию: "2"
+rpp_log_level "2"
+
+// Продолжительность защиты игрока от урона после возрождения (в секундах)
+// По умолчанию: "5"
+rpp_protection_time_default "5"
+
+// Значение альфа канала рендеринга игрока
+// Диапазон значений от 0 до 255. При значении 0 функция отключена
+// По умолчанию: "40"
+rpp_protection_render_amount "40"
+
+// Режим рендеринга игрока
+// Допустимые значения: kRenderNormal, kRenderGlow, kRenderTransAdd и др.
+// Весь список значений смотрите в cssdk_const.inc
+// По умолчанию: "kRenderNormal"
+rpp_protection_render_mode "kRenderNormal"
+
+// Эффекты рендеринга игрока
+// Допустимые значения: kRenderFxNone, kRenderFxGlowShell и др.
+// Весь список значений смотрите в cssdk_const.inc
+// По умолчанию: "kRenderFxGlowShell"
+rpp_protection_render_fx "kRenderFxGlowShell"
+
+// RGB цвет рендеринга игрока команды Террористов
+// По умолчанию: "250 0 0"
+rpp_protection_render_color_tt "250 0 0"
+
+// RGB цвет рендеринга игрока команды Контр-Террористов
+// По умолчанию: "0 0 250"
+rpp_protection_render_color_ct "0 0 250"
+
+// Будет (1) или нет (0) показываться иконка статуса
+// По умолчанию: "1"
+rpp_protection_status_icon "1"
+
+// Задает группы клавиш, при нажатии которых сбросится защита игрока
+// 0 - функция отключена
+// 1 - клавиши движения (+forward, +back, +moveleft, +moveright)
+// 2 - клавиши стрельбы (+attack, +attack2)
+// 3 - клавиши движения и стрельбы
+// По умолчанию: "0"
+rpp_protection_stop_buttons "0"
+</div>
+<p>Последняя версия 0.0.5 (16 апр 2025г):</p>
+<ul style="padding-left: 55px;">
+  <li><a href="respawn_player_protection_changelog.html">Список изменений</a></li>
+</ul>
+</div>
+</body>
+</html>
