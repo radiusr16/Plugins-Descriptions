@@ -1,61 +1,71 @@
-<!DOCTYPE html []>
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Список изменений Flags For Playing Time</title>
-  <style type="text/css">
-    td,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    p,
-    ul,
-    ol,
-    li {
-      page-break-inside: avoid;
-    }
-  </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>flags_for_playing_time_changelog</title>
+	<style>
+		/* Basic styles for readability */
+		body {
+			font-family: sans-serif;
+			max-width: 800px;
+			margin: 2em auto;
+			padding: 0 1em;
+			line-height: 1.6;
+		}
+		img { max-width: 100%; height: auto; }
+		pre { background-color: #f4f4f4; padding: 1em; overflow-x: auto; }
+		code { font-family: monospace; }
+	</style>
 </head>
-
 <body>
-  <h3 id="section">Версия 0.1.1 (15 апр 2024г):</h3>
-  <h4 id="section-1">Добавлено:</h4>
-  <ul>
-    <li>
-      <p>добавлен квар fpt_ignore_duration, отвечающий за время, на которое блокируется<br />
-        повторная выдача флагов доступа (в минутах)</p>
-    </li>
-    <li>
-      <p>добавлен квар fpt_data3_storage_time,, отвечающий за время хранения данных<br />
-        игрока (в минутах), отвечающих за время блокировки</p>
-    </li>
-    <li>
-      <p>добавлен квар ls_dmg_per_point, отвечающий за суммарное количество урона,<br />
-        которое нужно нанести противнику чтобы получить 1 очко опыта при<br />
-        ls_accumulate_points_type 1</p>
-    </li>
-    <li>
-      <p>добавлен квар ls_points_per_minute, который задает количество очков опыта,<br />
-        начисляемое игроку в минуту при ls_accumulate_points_type 2</p>
-    </li>
-    <li>
-      <p>аргументу rank_points команды ls_set_rank_points добавлено спец. значение:<br />
-        -1 - обнуляет очки опыта и загружает их из статистики, при условии что квар<br />
-        ls_init_from_csstats равен 1</p>
-    </li>
-  </ul>
-  <h4 id="section-2">Обновившиеся файлы:</h4>
-  <ul>
-    <li>addons/amxmodx/plugins/flags_for_playing_time.amxx</li>
-    <li>addons/amxmodx/configs/flags_for_playing_time.cfg</li>
-  </ul>
-  <h3 id="section-3">Бета версия 0.0.4 (09 июл 2023г):</h3>
-  <ul>
-    <li>создан плагин</li>
-  </ul>
-</body>
+	<h2>Версия 0.2.0 (27 фев 2026 г.):</h2>
+<h3>Добавлено:</h3>
+<ul>
+<li>добавлено оповещение в чате для всех, о том что игрок получил флаги доступа<br>
+(ключ словаря FPT_PLAYER_GOT_FLAGS_ALL, можно закомментировать для отключения)</li>
+<li>добавлен квар fpt_log_type, который задает куда будут писаться логи</li>
+<li>добавлена поддержка модов с постоянным возрождением, чтобы не пропадало HUD<br>
+оповещение (CSDM, Gungame и т.д)</li>
+<li>добавлена поддержка обновления lang файла с учетом закомментированных строк</li>
+</ul>
+<h3>Изменено:</h3>
+<ul>
+<li>при подключении игрока теперь срабатывает внеочередное оповещение о том<br>
+сколько осталось сыграть до получения флагов или когда истекают флаги, чтобы<br>
+сразу видеть и не ждать fpt_time_info_hud_msg_freq секунд</li>
+<li>плагин больше не зависит от сторонних плагинов</li>
+<li>вместо 3-х nvault файлов, теперь используется один flags_for_playing_time.vault</li>
+</ul>
+<h3>Исправлено:</h3>
+<ul>
+<li>игрокам с флагами fpt_ignore_flags показывалось оставшееся время</li>
+<li>при ручной проверке оставшегося времени, вместо времени когда истекают флаги,<br>
+отображалось сообщение о том сколько нужно сыграть</li>
+</ul>
+<h3>Обновившиеся файлы:</h3>
+<ul>
+<li>addons/amxmodx/plugins/flags_for_playing_time.amxx</li>
+<li>addons/amxmodx/configs/flags_for_playing_time.cfg</li>
+<li>addons/amxmodx/data/lang/flags_for_playing_time.txt</li>
+</ul>
+<h2>Версия 0.1.1 (15 апр 2024 г.):</h2>
+<h3>Добавлено:</h3>
+<ul>
+<li>добавлен квар fpt_ignore_duration, отвечающий за время, на которое блокируется<br>
+повторная выдача флагов доступа (в минутах)</li>
+<li>добавлен квар fpt_data3_storage_time, отвечающий за время хранения данных<br>
+игрока (в минутах), отвечающих за время блокировки</li>
+</ul>
+<h3>Обновившиеся файлы:</h3>
+<ul>
+<li>addons/amxmodx/plugins/flags_for_playing_time.amxx</li>
+<li>addons/amxmodx/configs/flags_for_playing_time.cfg</li>
+</ul>
+<h2>Бета версия 0.0.4 (09 июл 2023 г.):</h2>
+<ul>
+<li>создан плагин</li>
+</ul>
 
+</body>
 </html>
