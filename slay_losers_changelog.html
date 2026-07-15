@@ -1,108 +1,149 @@
-<!DOCTYPE html []>
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Список изменений Slay Losers</title>
-  <style type="text/css">
-    td,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    p,
-    ul,
-    ol,
-    li {
-      page-break-inside: avoid;
-    }
-  </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>slay_losers_changelog</title>
+	<style>
+		/* Basic styles for readability */
+		body {
+			font-size: 16px;
+			font-family: sans-serif;
+			max-width: 800px;
+			margin: 2em auto;
+			padding: 0 1em;
+			line-height: 1.5;
+		}
+		img { max-width: 100%; height: auto; }
+		pre { background-color: #f4f4f4; overflow-x: auto; }
+		code { background-color: #f4f4f4; font-family: monospace; }
+	</style>
 </head>
-
 <body>
-  <h3 id="section">Версия 1.3.0 (30 июл 2025г):</h3>
-  <h4 id="section-1">Добавлено:</h4>
-  <ul>
-    <li>добавлен квар sl_thunder_sound, отвечающий за путь к файлу звука грома<br />
-      (только wav)</li>
-  </ul>
-  <h4 id="section-2">Изменено:</h4>
-  <ul>
-    <li>квар sl_effects, теперь позволяет отключать каждый эффект отдельно</li>
-    <li>код изменен под ReHLDS (требуется ReAPI)</li>
-    <li>сообщения HUD и чата, теперь сразу закомментированы при создании lang файла</li>
-  </ul>
-  <h4 id="section-3">Обновившиеся файлы:</h4>
-  <ul>
-    <li>addons/amxmodx/plugins/slay_losers.amxx</li>
-    <li>addons/amxmodx/configs/slay_losers.cfg</li>
-    <li>addons/amxmodx/data/lang/slay_losers.txt</li>
-  </ul>
-  <h3 id="section-4">Версия 1.2.0 (26 июл 2021г):</h3>
-  <h4 id="section-5">Добавлено:</h4>
-  <ul>
-    <li>добавлен квар 'sl_min_players', который задает минимальное количество игроков<br />
-      необходимое для работы плагина</li>
-    <li>добавлена форвард функция 'forward sl_effects_forward(index);', которая<br />
-      позволяет добавить (если форвард возвращает PLUGIN_CONTINUE) или переопределить<br />
-      все эффекты (если форвард возвращает значение отличное от PLUGIN_CONTINUE)</li>
-  </ul>
-  <h4 id="section-6">Изменено:</h4>
-  <ul>
-    <li>изменен код под внешнее ядро плагинов (plugins_core.amxx)</li>
-  </ul>
-  <h4 id="section-7">Исправлено:</h4>
-  <ul>
-    <li>при наказании игроков уменьшалось количество фрагов в таблице счета<br />
-      (как при убийстве самого себя)</li>
-  </ul>
-  <h3 id="section-8">Версия 1.1.8 (04 июл 2018г):</h3>
-  <h4 id="section-9">Добавлено:</h4>
-  <ul>
-    <li>добавлен квар sl_announce_sound, отвечающий за путь к файлу звука (mp3 или wav),<br />
-      который будет проигрываться при наказании за невыполнение задания карты</li>
-  </ul>
-  <h4 id="section-10">Изменено:</h4>
-  <ul>
-    <li>квары отвечающие за настройку HUD сообщений (оканчивающиеся на _pos и _color),<br />
-      объединены в один квар где значение цвета и координат разделяется символом '|'</li>
-  </ul>
-  <h4 id="section-11">Обновившиеся файлы:</h4>
-  <ul>
-    <li>addons/amxmodx/plugins/slay_losers.amxx</li>
-    <li>addons/amxmodx/configs/slay_losers.cfg</li>
-  </ul>
-  <h3 id="section-12">Версия 1.1.6 (29 июн 2017г):</h3>
-  <h4 id="section-13">Добавлено:</h4>
-  <ul>
-    <li>имеется 3 варианта отображения сообщения о наказании за невыполнение задания карты:<br />
-      цветное чат сообщение, HUD и DHUD сообщения с настройкой цвета и положения.<br />
-      Включение/отключение вариантов сообщений осуществляется через<br />
-      комментирование/удаление символов комментирования в slay_loosers.txt ('//' или ';')</li>
-    <li>добавлен квар sl_hud_msg_color, который задает RGB цвет HUD/DHUD сообщения,<br />
-      информирующего о том что игроки команды наказаны за невыполнение задания карты</li>
-    <li>добавлен квар sl_hud_msg_pos, который задает x и y координаты HUD/DHUD сообщения<br />
-      плагина, информирующего о том что игроки команды наказаны за невыполнение<br />
-      задания карты</li>
-    <li>добавлен квар sl_ignore_if_tried, который определяет будет ли игнорироваться<br />
-      наказание команды(1) или нет (0), если бомба уже была в процессе разминирования<br />
-      или если часть заложников спасена</li>
-    <li>добавлен квар sl_effects, который определяет будут (1) или нет (0) показываться<br />
-      эффекты при наказании за невыполнение задания карты</li>
-    <li>добавлен квар sl_immunity_flags, отвечающий за флаги доступа для игроков,<br />
-      которые будут обладать иммунитетом от наказания за невыполнение задания карты</li>
-  </ul>
-  <h4 id="section-14">Исправлено:</h4>
-  <ul>
-    <li>устранен недочет: не обнулялось игнорирование при sl_ignore_if_tried</li>
-  </ul>
-  <h4 id="section-15">Обновившиеся файлы:</h4>
-  <ul>
-    <li>addons/amxmodx/plugins/slay_losers.amxx</li>
-    <li>addons/amxmodx/configs/slay_losers.cfg</li>
-    <li>addons/amxmodx/data/lang/slay_losers.txt</li>
-  </ul>
-</body>
+<h2>Версия 1.4.0 (15 июл 2026 г.):</h2>
+<hr>
+<h3>Добавлено:</h3>
+<ul>
+<li>добавлен квар <code>sl_enabled</code>, который динамически включает/отключает плагин</li>
+<li>добавлен квар <code>sl_events</code>, отвечающий за настройку событий, при которых будет<br>
+применяться наказание за невыполнение задания карты</li>
+<li>добавлен квар <code>sl_min_players_ignore</code>, отвечающий за флаги задающие кого<br>
+игнорировать при подсчете минимального кол-ва игроков</li>
+<li>добавлен квар <code>sl_ct_announce_sound</code>, отвечающий за путь к файлу звука<br>
+(mp3 или wav), который проигрывается при наказании Контр-Террористов за<br>
+невыполнение задания карты</li>
+<li>добавлен квар <code>sl_tt_announce_sound</code>, отвечающий за путь к файлу звука<br>
+(mp3 или wav), который проигрывается при наказании Террористов за невыполнение<br>
+задания карты</li>
+<li>добавлен возможность обновления lang файла с учетом отключенных или<br>
+закомментированных ключей (требуется Plugins Core 1.8.17 и выше)</li>
+<li>добавлен API файл <code>addons/amxmodx/scripting/slay_losers.inc</code></li>
+</ul>
+<h3>Изменено:</h3>
+<ul>
+<li>у каждой команды теперь свои сообщения HUD, DHUD и чата</li>
+<li>форвард функция <code>sl_effects_forward</code> переименована в <code>sl_additional_conditions</code></li>
+<li>в форвард функцию <code>sl_additional_conditions</code> добавлен доп аргумент <code>effects</code>,<br>
+который позволяет переопределить набор стандартных эффектов</li>
+<li>форвард функция <code>sl_additional_conditions</code> теперь позволяет блокировать<br>
+наказание игрока, если возвращает PLUGIN_HANDLED или PLUGIN_HANDLED_MAIN</li>
+</ul>
+<h3>Удалено:</h3>
+<ul>
+<li>квар <code>sl_announce_sound</code> (заменен <code>sl_ct_announce_sound</code> и <code>sl_tt_announce_sound</code>)</li>
+</ul>
+<h3>Обновившиеся файлы:</h3>
+<ul>
+<li>addons/amxmodx/plugins/slay_losers.amxx</li>
+<li>addons/amxmodx/configs/slay_losers.cfg</li>
+<li>addons/amxmodx/data/lang/slay_losers.txt</li>
+</ul>
+<h2>Версия 1.3.0 (30 июл 2025 г.):</h2>
+<hr>
+<h3>Добавлено:</h3>
+<ul>
+<li>добавлен квар sl_thunder_sound, отвечающий за путь к файлу звука грома<br>
+(только wav)</li>
+</ul>
+<h3>Изменено:</h3>
+<ul>
+<li>квар sl_effects, теперь позволяет отключать каждый эффект отдельно</li>
+<li>код изменен под ReHLDS (требуется ReAPI)</li>
+<li>сообщения HUD и чата, теперь сразу закомментированы при создании lang файла</li>
+</ul>
+<h3>Обновившиеся файлы:</h3>
+<ul>
+<li>addons/amxmodx/plugins/slay_losers.amxx</li>
+<li>addons/amxmodx/configs/slay_losers.cfg</li>
+<li>addons/amxmodx/data/lang/slay_losers.txt</li>
+</ul>
+<h2>Версия 1.2.0 (26 июл 2021 г.):</h2>
+<hr>
+<h3>Добавлено:</h3>
+<ul>
+<li>добавлен квар ‘sl_min_players’, который задает минимальное количество игроков<br>
+необходимое для работы плагина</li>
+<li>добавлена форвард функция ‘forward sl_effects_forward(index);’, которая<br>
+позволяет добавить (если форвард возвращает PLUGIN_CONTINUE) или переопределить<br>
+все эффекты (если форвард возвращает значение отличное от PLUGIN_CONTINUE)</li>
+</ul>
+<h3>Изменено:</h3>
+<ul>
+<li>изменен код под внешнее ядро плагинов (plugins_core.amxx)</li>
+</ul>
+<h3>Исправлено:</h3>
+<ul>
+<li>при наказании игроков уменьшалось количество фрагов в таблице счета<br>
+(как при убийстве самого себя)</li>
+</ul>
+<h2>Версия 1.1.8 (04 июл 2018 г.):</h2>
+<hr>
+<h3>Добавлено:</h3>
+<ul>
+<li>добавлен квар sl_announce_sound, отвечающий за путь к файлу звука (mp3 или wav),<br>
+который будет проигрываться при наказании за невыполнение задания карты</li>
+</ul>
+<h3>Изменено:</h3>
+<ul>
+<li>квары отвечающие за настройку HUD сообщений (оканчивающиеся на _pos и _color),<br>
+объединены в один квар где значение цвета и координат разделяется символом ‘|’</li>
+</ul>
+<h3>Обновившиеся файлы:</h3>
+<ul>
+<li>addons/amxmodx/plugins/slay_losers.amxx</li>
+<li>addons/amxmodx/configs/slay_losers.cfg</li>
+</ul>
+<h2>Версия 1.1.6 (29 июн 2017 г.):</h2>
+<hr>
+<h3>Добавлено:</h3>
+<ul>
+<li>имеется 3 варианта отображения сообщения о наказании за невыполнение задания карты:<br>
+цветное чат сообщение, HUD и DHUD сообщения с настройкой цвета и положения.<br>
+Включение/отключение вариантов сообщений осуществляется через<br>
+комментирование/удаление символов комментирования в slay_loosers.txt (‘//’ или ‘;’)</li>
+<li>добавлен квар sl_hud_msg_color, который задает RGB цвет HUD/DHUD сообщения,<br>
+информирующего о том что игроки команды наказаны за невыполнение задания карты</li>
+<li>добавлен квар sl_hud_msg_pos, который задает x и y координаты HUD/DHUD сообщения<br>
+плагина, информирующего о том что игроки команды наказаны за невыполнение<br>
+задания карты</li>
+<li>добавлен квар sl_ignore_if_tried, который определяет будет ли игнорироваться<br>
+наказание команды(1) или нет (0), если бомба уже была в процессе разминирования<br>
+или если часть заложников спасена</li>
+<li>добавлен квар sl_effects, который определяет будут (1) или нет (0) показываться<br>
+эффекты при наказании за невыполнение задания карты</li>
+<li>добавлен квар sl_immunity_flags, отвечающий за флаги доступа для игроков,<br>
+которые будут обладать иммунитетом от наказания за невыполнение задания карты</li>
+</ul>
+<h3>Исправлено:</h3>
+<ul>
+<li>устранен недочет: не обнулялось игнорирование при sl_ignore_if_tried</li>
+</ul>
+<h3>Обновившиеся файлы:</h3>
+<ul>
+<li>addons/amxmodx/plugins/slay_losers.amxx</li>
+<li>addons/amxmodx/configs/slay_losers.cfg</li>
+<li>addons/amxmodx/data/lang/slay_losers.txt</li>
+</ul>
 
+</body>
 </html>
