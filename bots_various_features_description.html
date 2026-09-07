@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Описание плагина Bots Various Features</title>
+	<style>
+		/* Basic styles for readability */
+		body {
+			max-width: 700px;
+      padding-bottom: 60vh;
+		}
+	</style>
+</head>
+<body>
+Bots Various Features
+0.0.1
+<p>Автор: Radius</p>
+<p>Описание:</p>
+<p style="padding-left: 30px;">Плагин позволяет гибко настраивать различные аспекты работы ботов.</p>
+<p>Особенности:</p>
+<ul>
+<li>возможность настройки плагина под определенных ботов (см <a href="#bvf_quota_ref_cvar">bvf_quota_ref_cvar</a>, <a href="#bvf_auto_vacate_ref_cvar">bvf_auto_vacate_ref_cvar</a>)</li>
+<li>возможность гибкой настройки количества ботов в зависимости от онлайна сервера (см <a href="#bvf_add_quota">bvf_add_quota</a>)</li>
+<li>возможность назначить ботам случайный ник из файла names.ini</li>
+<li>возможность назначить ботам случайный SteamID из файла steamids.ini<br />Внимание: SteamID отображается только в выводе команды status</li>
+<li>возможность добавить рекламных ботов в файл исключений exclude.ini</li>
+<li>все квары и команды для удобства настраиваются в автоматически создаваемом конфигурационном файле 'addons/amxmodx/configs/bots_various_features/bots_various_features.cfg'</li>
+</ul>
+<p>Требования:</p>
+<ul>
+  <li><a href="plugins_core_description.html">Plugins Core (версии 1.8.0 и выше)</a></li>
+  <li>ReAPI</li>
+</ul>
+<p>Настройки (из автоматически создаваемого конфигурационного файла 'bots_various_features.cfg'):</p>
+<div style="padding-left: 30px;white-space:pre;font-family:monospace">
+// bvf_update_config - обновляет файл 'bots_various_features/bots_various_features.cfg' при смене карты
+//   1 - обновить файл
+//   2 - сделать бэкап (*.bkp) и обновить файл
+// Внимание: Текущие значения кваров (кроме команд), запишутся в обновленный файл
+// Квар со значением прописывается в консоли сервера
+// После обновления квар сам вернется в значение 0
+
+// Уровень логов
+//   0 - выключено (OFF)
+//   1 - предупреждения (WARN)
+//   2 - информация (INFO)
+//   3 - отладочная информация (DEBUG)
+//   4 - подробная отладочная информация (TRACE)
+// По умолчанию: "2"
+bvf_log_level "2"
+<div id = "bvf_quota_ref_cvar"></div>
+// Название квара, отвечающего за количество ботов
+// bot_quota - боты встроенные в ReGameDLL
+// yb_quota  - YaPB боты
+// По умолчанию: "bot_quota"
+bvf_quota_ref_cvar "bot_quota"
+<div id = "bvf_auto_vacate_ref_cvar"></div>
+// Название квара, отвечающего за автоотключение бота при подключении игрока
+// bot_auto_vacate - боты встроенные в ReGameDLL
+// yb_autovacate   - YaPB боты
+// По умолчанию: "bot_auto_vacate"
+bvf_auto_vacate_ref_cvar "bot_auto_vacate"
+
+// Менять (1) или нет (0) ботам ник из файла names.ini
+// По умолчанию: "1"
+bvf_set_name "1"
+
+// Назначать (1) или нет (0) ботам SteamID из файла steamids.ini
+// По умолчанию: "1"
+bvf_set_steamid "1"
+
+// Флаги доступа, отвечающие за видимость BOT у ботов в выводе команды status
+// По умолчанию: "d"
+bvf_status_ignore_flags "d"
+<div id = "bvf_add_quota"></div>
+// bvf_add_quota - консольная команда, добавляющая настройки количества ботов
+//   в зависимости от онлайна сервера
+// Формат команды:
+//   bvf_add_quota "1" "2" "3" "4"
+// 1. quota - обязательный аргумент, отвечающий за количество ботов
+// 2. players_limit - обязательный аргумент, отвечающий за лимит игроков и ботов,
+//   при достижении которого боты начнут выходить с сервера
+// 3. min_players - обязательный аргумент, отвечающий за минимальное количество
+//   игроков и ботов на сервере
+// 4. max_players - обязательный аргумент, отвечающий за максимальное количество
+//   игроков и ботов на сервере
+
+bvf_add_quota "20" "20" "0" "32"
+</div>
+<p>Последняя версия 0.0.1 (07 сен 2026г):</p>
+<ul style="padding-left: 55px;">
+  <li><a href="bots_various_features_changelog.html">Список изменений</a></li>
+</ul>
+</body>
+</html>
