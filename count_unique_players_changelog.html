@@ -1,58 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>count_unique_players_changelog</title>
-	<style>
-		/* Basic styles for readability */
-		body {
-			font-family: sans-serif;
-			max-width: 800px;
-			margin: 2em auto;
-			padding: 0 1em;
-			line-height: 1.6;
-		}
-		img { max-width: 100%; height: auto; }
-		pre { background-color: #f4f4f4; padding: 1em; overflow-x: auto; }
-		code { font-family: monospace; }
-	</style>
+  <meta charset="UTF-8">
+  <title>count_unique_players_changelog</title>
+  <style>
+    /* Basic styles for readability */
+    body {
+      max-width: 700px;
+    }
+    img { max-width: 100%; height: auto; }
+    pre { background-color: #f4f4f4; overflow-x: auto; }
+    code { background-color: #f4f4f4; font-family: monospace; }
+  </style>
 </head>
 <body>
-	<h2>Версия 1.3.0 (10 окт 2026 г.):</h2>
+<hr>
+<h2>Версия 1.3.0 (10 окт 2026 г.):</h2>
 <h3>Добавлено:</h3>
 <ul>
 <li>добавлен квар cup_calc_average_players_num, определяющий будет (1) или нет (0)<br>
 подсчитываться среднее количество игроков за день</li>
 <li>добавлен квар cup_informer_enabled, определяющий будет (1) или нет (0) работать<br>
 информер</li>
-<li>добавлена native функция:</li>
-</ul>
-<pre><code>      /**
-       * Получает текущее количество уникальных игроков
-       *
-       * @return        количество уникальных игроков
-       */
-      native cup_get_unique_players_num();
+<li>добавлена native функция:
+<pre><code>/**
+ * Получает текущее количество уникальных игроков
+ *
+ * @return        количество уникальных игроков
+ */
+native cup_get_unique_players_num();
 </code></pre>
+</li>
+</ul>
 <ul>
-<li>добавлена forward функция:</li>
-</ul>
-<pre><code>      /**
-       * Функция позволяет исключить игрока из числа уникальных по своим условиям
-       *
-       * @param player  индекс игрока
-       *
-       * @return        PLUGIN_CONTINUE - игрок будет учитываться
-       *                PLUGIN_HANDLED  - игрок не будет учитываться
-       */  
-      forward cup_check_user_for_exception(player);
+<li>добавлена forward функция:
+<pre><code>/**
+ * Функция позволяет исключить игрока из числа уникальных по своим условиям
+ *
+ * @param player  индекс игрока
+ *
+ * @return        PLUGIN_CONTINUE - игрок будет учитываться
+ *                PLUGIN_HANDLED  - игрок не будет учитываться
+ */  
+forward cup_check_user_for_exception(player);
 </code></pre>
+</li>
+</ul>
 <h3>Обновившиеся файлы:</h3>
 <ul>
 <li>addons/amxmodx/plugins/count_unique_players.amxx</li>
 <li>addons/amxmodx/configs/count_unique_players.cfg</li>
 </ul>
+<hr>
 <h2>Версия 1.2.0 (23 фев 2025 г.):</h2>
 <h3>Добавлено:</h3>
 <ul>
@@ -70,6 +69,7 @@
 <li>addons/amxmodx/plugins/count_unique_players.amxx</li>
 <li>addons/amxmodx/configs/count_unique_players.cfg</li>
 </ul>
+<hr>
 <h2>Версия 1.1.0 (17 июн 2024 г.):</h2>
 <h3>Добавлено:</h3>
 <ul>
@@ -87,10 +87,12 @@ Player: “Nickname&lt;STEAM_X:X:XXXXXXXX&gt;&lt;255.255.255.255&gt;”</li>
 <li>addons/amxmodx/configs/count_unique_players.cfg</li>
 <li>addons/amxmodx/data/lang/count_unique_players.txt</li>
 </ul>
+<hr>
 <h2>Версия 1.0.0 (05 мая 2024 г.):</h2>
 <ul>
 <li>релиз</li>
 </ul>
+<hr>
 <h2>Бета версия 0.0.3 (11 апр 2024 г.):</h2>
 <ul>
 <li>создан плагин</li>
